@@ -14,3 +14,8 @@ $headers-font: "Nunito", "Helvetica", "sans-serif";
 //        font-url('FontFile.ttf') format('truetype')
 // }
 // $my-font: "Font Name";
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800;900&display=swap');
+
+$body-font:    "Press Start 2P", cursive;   // Default font for body text — retro 8-bit pixel style
+$headers-font: "Press Start 2P", cursive;

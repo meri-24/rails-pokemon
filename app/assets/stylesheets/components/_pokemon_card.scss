@@ -1,0 +1,162 @@
+// ============================================
+// POKEMON CARD
+// Usage: <div class="pokemon-card">
+//
+// Inside the card you can use:
+//   .pokemon-card-link  → full-card invisible link
+//   .type-badge.type-{element_type} → type badge
+//   .pokemon-cry        → audio cry section on show page
+// ============================================
+
+.pokemon-card {
+  display: flex;                   // enables flexbox layout
+  flex-direction: column;          // stacks image, name, type, and buttons vertically
+  align-items: center;             // horizontally centers all children
+  justify-content: space-between;  // spreads children so buttons sit at the bottom
+  padding: 1rem;                   // inner spacing between card edge and content
+  border-radius: 0.75rem;          // rounded corners
+  background: $cardbg;             // dark card surface
+  border: 1px solid $cardedge;    // subtle border
+  position: relative;              // needed so the ::after pseudo-element and the link overlay position correctly
+  z-index: 0;                      // creates a stacking context for the z-index: -1 glow layer below
+  color: $white;                   // default text color
+  cursor: pointer;                 // whole card behaves like a clickable element
+  transition: transform 0.3s ease, box-shadow 0.3s ease; // smooth lift and shadow on hover
+
+  // Rainbow holographic glow — hidden at rest, animates on hover
+  &::after {
+    content: '';              // required for pseudo-elements — no visible text content
+    position: absolute;       // positions relative to the card
+    inset: -2px;              // expands 2 px beyond every edge so the glow peeks around the border
+    z-index: -1;              // renders behind the card surface
+    border-radius: 0.875rem;  // slightly larger radius than the card to match the expanded size
+    background: linear-gradient(
+      135deg,
+      #ff0000, #ff7700, #ffff00,
+      #00ff00, #0099ff, #6600ff, #ff0099
+    );                        // full-spectrum rainbow gradient for the holographic effect
+    filter: blur(6px) hue-rotate(0deg); // blurs the gradient edges; hue-rotate starts at 0 and animates
+    opacity: 0;               // invisible by default
+    transition: opacity 0.3s ease; // fades in when hover starts
+    animation: none;          // no animation at rest — started on hover
+  }
+
+  &:hover {
+    transform: translateY(-6px);   // lifts the card upward on hover
+    border-color: transparent;     // hides the regular border so only the rainbow glow shows
+
+    &::after {
+      opacity: 0.85;                                    // makes the glow visible
+      animation: rainbow-spin 3s linear infinite;       // continuously rotates the hue
+    }
+  }
+
+  img {
+    width: 100%;                                          // fills the card width
+    image-rendering: pixelated;                           // keeps pixel-art sprites crisp instead of blurry
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5));  // shadow beneath the sprite
+    transition: transform 0.3s ease;                      // smooth scale on hover
+  }
+
+  &:hover img {
+    transform: translateY(-3px) scale(1.05);  // image floats up and enlarges slightly on hover
+  }
+
+  a {
+    color: $white;
+    text-decoration: none;
+    &:hover { text-decoration: none; }
+  }
+
+  // Full-card invisible link — sits above the card, below buttons
+  // Usage: <%= link_to "", pokemon, class: "pokemon-card-link" %>
+  .pokemon-card-link {
+    position: absolute;  // covers the entire card
+    top: 0;
+    left: 0;
+    width: 100%;         // full card width
+    height: 100%;        // full card height
+    z-index: 2;          // above the card content but below buttons
+  }
+
+  // Buttons must sit ABOVE the full-card link
+  .btn { z-index: 3; }  // ensures buttons receive clicks rather than the link overlay
+
+  .element-type {
+    font-size: 0.55rem;        // very small — secondary information
+    opacity: 0.7;              // dimmed to appear less prominent than the pokemon name
+    text-transform: capitalize; // "fire" → "Fire"
+    margin-top: 0.35rem;       // small gap above the type label
+    letter-spacing: 0.05em;    // slight spacing aids readability at small sizes
+  }
+}
+
+// Keyframe for rainbow border — only runs on hover
+@keyframes rainbow-spin {
+  from { filter: blur(6px) hue-rotate(0deg); }
+  to   { filter: blur(6px) hue-rotate(360deg); }
+}
+
+// Pokemon show page — wraps card + audio
+// Usage: <div class="pokemon-details">
+.pokemon-details {
+  display: flex;          // enables flexbox layout
+  flex-direction: column; // stacks the pokemon card above the cry section
+}
+
+// Audio cry section on show page
+// Usage: <div class="pokemon-cry">
+.pokemon-cry {
+  margin-top: 1rem;              // gap between the pokemon card and the cry box
+  padding: 0.75rem 1rem;        // inner spacing inside the cry box
+  background: $cardbg;           // same dark surface as card backgrounds
+  border: 1px solid $cardedge;  // subtle border consistent with other cards
+  border-radius: 0.75rem;        // rounded corners
+
+  .pokemon-cry-label {
+    font-size: 0.6rem;                   // small label text
+    font-family: 'Press Start 2P', monospace; // retro pixel font for the label
+    color: $pokeyellow;                  // yellow accent color
+    margin-bottom: 0.5rem;              // space between the label and the audio player
+    letter-spacing: 0.05em;             // slight spacing aids readability at small sizes
+  }
+
+  audio {
+    width: 100%;             // audio player fills the full width of the cry box
+    accent-color: $pokeyellow; // colors the browser's native audio controls yellow
+  }
+}
+
+// ============================================
+// TYPE BADGES
+// Usage: <span class="type-badge type-<%= pokemon.element_type %>">
+// The element_type string from the DB becomes the CSS class
+// e.g. "fire" → class="type-badge type-fire"
+// ============================================
+
+.type-badge {
+  display: inline-block;      // allows padding and width without forcing a full-width block
+  padding: 0.15rem 0.65rem;  // tight vertical, wider horizontal — classic pill shape
+  border-radius: 20px;        // large radius creates a rounded pill shape
+  font-size: 0.65rem;         // small label that doesn't overpower the pokemon name
+  font-weight: 800;           // heavy weight keeps the short type label legible at small sizes
+  text-transform: capitalize; // "fire" → "Fire"
+  letter-spacing: 0.03em;     // slight spacing helps readability
+  color: $darkbg;             // dark text — readable on bright type colors
+}
+
+.type-normal   { background-color: $type-normal; }
+.type-fire     { background-color: $type-fire; }
+.type-water    { background-color: $type-water; }
+.type-electric { background-color: $type-electric; }
+.type-grass    { background-color: $type-grass; }
+.type-ice      { background-color: $type-ice; }
+.type-fighting { background-color: $type-fighting; color: $white; }
+.type-poison   { background-color: $type-poison;   color: $white; }
+.type-ground   { background-color: $type-ground; }
+.type-flying   { background-color: $type-flying; }
+.type-psychic  { background-color: $type-psychic; }
+.type-bug      { background-color: $type-bug; }
+.type-rock     { background-color: $type-rock; }
+.type-ghost    { background-color: $type-ghost; color: $white; }
+.type-dragon   { background-color: $type-dragon; color: $white; }

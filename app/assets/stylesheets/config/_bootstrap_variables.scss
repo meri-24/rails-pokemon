@@ -26,3 +26,42 @@ $border-radius-xl:            .5rem;
 $border-radius-xxl:           1rem;
 
 // Override other variables below!
+
+// ============================================
+// BOOTSTRAP VARIABLE OVERRIDES
+// Must be declared BEFORE @import "bootstrap"
+// Bootstrap reads these and uses them when compiling
+// ============================================
+
+// Typography
+$font-family-sans-serif: $body-font;
+$headings-font-family:   $headers-font;
+$font-size-base:         1rem;
+
+// Dark theme base
+$body-bg:    $darkbg;
+$body-color: $white;
+
+// Brand colors mapped to Bootstrap roles
+$primary:  $pokeyellow;
+$success:  $green;
+$info:     $blue;
+$danger:   $red;
+$warning:  $orange;
+
+// Cards
+$card-bg:           $cardbg;
+$card-border-color: $cardedge;
+$card-color:        $white;
+
+// Navbar
+$navbar-dark-color:        rgba($white, 0.7);
+$navbar-dark-hover-color:  $pokeyellow;
+$navbar-dark-active-color: $pokeyellow;
+
+// Border radius
+$border-radius-sm:  0.0625rem;
+$border-radius:     0.125rem;
+$border-radius-lg:  0.25rem;
+$border-radius-xl:  0.5rem;
+$border-radius-xxl: 1rem;

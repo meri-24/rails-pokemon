@@ -8,3 +8,44 @@ $orange: #E67E22;
 $green: #1EDD88;
 $gray: #0E0000;
 $light-gray: #F4F4F4;
+
+$darkbg:     #0D1117;   // page background
+$cardbg:     #161B22;   // card & input background
+$cardedge:   #21262D;   // subtle card border
+
+// Brand colors from the Pokémon franchise
+$pokered:    #E3350D;   // Pokéball red
+$pokeyellow: #FFCB05;   // Pikachu yellow — also used as Bootstrap $primary
+$pokeblue:   #003A70;   // Pokémon blue
+
+// General utility colors (used for buttons, alerts, links, etc.)
+$red:        #FD1015;
+$blue:       #0D6EFD;
+$dark-blue:  #051F49;
+$yellow:     #FFC65A;
+$orange:     #E67E22;
+$green:      #1EDD88;
+$white:      #FFFFFF;
+
+// ============================================
+// POKÉMON TYPE COLORS
+// Class names match PokéAPI element_type strings
+// How it works: in the view we write class="type-badge type-fire"
+// The SCSS reads $type-fire and applies that background color
+// e.g. "fire" → .type-fire { background: $type-fire }
+// ============================================
+$type-normal:   #ADB5BD;
+$type-fire:     #FFA657;
+$type-water:    #58A6FF;
+$type-electric: #F9D22E;
+$type-grass:    #7EE787;
+$type-ice:      #98D8D8;
+$type-fighting: #C03028;
+$type-poison:   #A040A0;
+$type-ground:   #E0C068;
+$type-flying:   #A890F0;
+$type-psychic:  #D87BF4;
+$type-bug:      #A8C820;
+$type-rock:     #B8A038;
+$type-ghost:    #705898;
+$type-dragon:   #7038F8;

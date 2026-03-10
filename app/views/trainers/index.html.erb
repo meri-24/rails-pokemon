@@ -1,0 +1,23 @@
+<div class="container">
+  <%= link_to "< Pokedex", root_path %>
+
+  <h1>Let's Get Training</h1>
+
+  <div class="row">
+
+    <% @trainers.each do |trainer| %>
+    <div class="col-4 my-3">
+      <%= link_to trainer_path(trainer), style: "text-decoration: none;" do %>
+      <div class="card">
+        <%= cl_image_tag trainer.photo.key, class: "card-img-top", alt: trainer.name, crop: :fill %>
+        <div class="card-body">
+          <h5 class="card-title"><%= trainer.name %></h5>
+          <p class="card-text"><%= trainer.age %> years old</p>
+        </div>
+      </div>
+      <% end %>
+    </div>
+    <% end %>
+
+  </div>
+</div>

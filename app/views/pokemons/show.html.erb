@@ -1,0 +1,24 @@
+<div class="container">
+  <%= link_to "< Pokedex", root_path %>
+  <div class="row">
+    <div class="col-6">
+      <p>You hear a rustle in the tall grass... A wild Pokemon appears!</p>
+      <div class="card">
+        <%= cl_image_tag @pokemon.photo.key, class: "card-img-top", alt: @pokemon.name, crop: :fill %>
+        <div class="card-body">
+          <h5 class="card-title"><%= @pokemon.name %></h5>
+          <p class="card-text"><%= @pokemon.element_type %></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <h2>Do you dare to catch this Pokemon?</h2>
+      <%= simple_form_for [@pokemon, @pokeball] do |f| %>
+        <%= f.association :trainer, label: "Who's trying their luck?" %>
+        <%= f.input :location, label: "Where are you?" %>
+        <%= f.input :caught_on, as: :date, html5: true, label: "When?" %>
+        <%= f.submit "Catch!" %>
+      <% end %>
+    </div>
+  </div>
+</div>
